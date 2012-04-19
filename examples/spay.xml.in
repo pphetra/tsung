@@ -1,0 +1,122 @@
+<?xml version="1.0"?>
+<!DOCTYPE tsung SYSTEM "/usr/local/share/tsung/tsung-1.0.dtd">
+<tsung loglevel="debug" dumptraffic="true">
+
+  <clients>
+    <client host="localhost" use_controller_vm="true"/>
+  </clients>
+
+  <!-- Server side setup -->
+  <servers>
+    <server host="127.0.0.1" port="4100" type="tcp"/>
+  </servers>
+
+  <load>
+    <arrivalphase phase="1" duration="1" unit="minute">
+      <users arrivalrate="5" unit="second"></users>
+    </arrivalphase>
+
+    <arrivalphase phase="2" duration="1" unit="minute">
+      <users arrivalrate="7" unit="second"></users>
+    </arrivalphase>
+
+    <arrivalphase phase="3" duration="1" unit="minute">
+      <users arrivalrate="10" unit="second"></users>
+    </arrivalphase>
+
+  </load>
+
+  <options>
+    <option name="file_server" id="machines"  value="./machines.csv"></option>
+    <option name="file_server" id="phones" value="./phones.csv"></option>
+  </options>
+
+  <sessions>
+
+    <session probability="100" name="ping" type="ts_spay" >
+
+      <setdynvars sourcetype="file" fileid="machines" delimiter=";" order="iter">
+        <var name="machine_id" />
+      </setdynvars>
+
+      <request>
+          <spay type='00' machine_id="%%_machine_id%%"/>
+      </request>
+
+      <transaction name="askMenu1">
+
+        <setdynvars sourcetype="file" fileid="phones" delimiter=";" order="iter">
+          <var name="phone_number"/>
+        </setdynvars>
+
+        <thinktime value="5" random="true"></thinktime>
+
+        <request>
+            <spay type='01' phone_number="%%_phone_number%%"/>
+        </request>
+
+        <thinktime value="10" random="true"></thinktime>
+
+        <request>
+            <spay type='02'/>
+        </request>
+
+      </transaction>
+
+      <request>
+          <spay type='00' machine_id="%%_machine_id%%"/>
+      </request>
+
+      <thinktime value="1"></thinktime>
+
+      <transaction name="askMenu2">
+
+        <setdynvars sourcetype="file" fileid="phones" delimiter=";" order="iter">
+          <var name="phone_number"/>
+        </setdynvars>
+
+        <thinktime value="5" random="true"></thinktime>
+
+        <request>
+            <spay type='01' phone_number="%%_phone_number%%"/>
+        </request>
+
+        <thinktime value="10" random="true"></thinktime>
+
+        <request>
+            <spay type='02'/>
+        </request>
+
+      </transaction>
+
+      <request>
+          <spay type='00' machine_id="%%_machine_id%%"/>
+      </request>
+
+      <thinktime value="1"></thinktime>
+
+
+      <transaction name="askMenu3">
+
+        <setdynvars sourcetype="file" fileid="phones" delimiter=";" order="iter">
+          <var name="phone_number"/>
+        </setdynvars>
+
+        <thinktime value="5" random="true"></thinktime>
+
+        <request>
+            <spay type='01' phone_number="%%_phone_number%%"/>
+        </request>
+
+        <thinktime value="10" random="true"></thinktime>
+
+        <request>
+            <spay type='02'/>
+        </request>
+
+      </transaction>
+
+
+    </session>
+  </sessions>
+</tsung>
