@@ -2,7 +2,8 @@
 -record(spay_request, {
           type,
           machine_id,
-          phone_number
+          phone_number,
+          provider
 }).
 
 %%

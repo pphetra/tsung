@@ -270,6 +270,7 @@ repeat | if | change_type | foreach | set_option)*>
     machine_id   CDATA   #IMPLIED
     phone_number CDATA   #IMPLIED
     seq          CDATA   #IMPLIED
+    provider     CDATA   #IMPLIED
 >
 
 <!ELEMENT pgsql (#PCDATA) >

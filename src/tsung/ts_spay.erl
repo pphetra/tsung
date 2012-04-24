@@ -48,8 +48,8 @@ get_message(#spay_request{type="00",machine_id=M},#state_rcv{session=S}) ->
     Out = list_to_binary(["%00,ver01=", M, "1#"]),
     io:format("out ~p~n", [Out]),
     {Out, S};
-get_message(#spay_request{type="01",phone_number=P},#state_rcv{session=S}) ->
-    Out = list_to_binary(["%010101=", P, "#"]),
+get_message(#spay_request{type="01",phone_number=P,provider=Provider},#state_rcv{session=S}) ->
+    Out = list_to_binary(["%01", Provider, "=", P, "#"]),
     io:format("out ~p~n", [Out]),
     {Out, S};
 get_message(#spay_request{type="02"}, #state_rcv{session=S, dyndata=#dyndata{dynvars=DynVars}}) ->

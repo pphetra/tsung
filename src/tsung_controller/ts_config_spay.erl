@@ -29,7 +29,8 @@ parse_config(Element = #xmlElement{name=spay},
                  #spay_request{type="00", machine_id=M};
             "01" ->
                 P = ts_config:getAttr(Element#xmlElement.attributes, phone_number),
-                #spay_request{type="01", phone_number=P};
+                Provider = ts_config:getAttr(Element#xmlElement.attributes, provider),
+                #spay_request{type="01", phone_number=P, provider=Provider};
             "02" ->
                 #spay_request{type="02"}
         end,
